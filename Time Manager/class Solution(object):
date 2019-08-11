@@ -1,0 +1,44 @@
+class Solution(object):
+    def backspaceCompare(self, S, T):
+        """
+        :type S: str
+        :type T: str
+        :rtype: bool
+        """
+        ptrS = len(S) - 1
+        ptrT = len(T) - 1
+        Scount = 0
+        Tcount = 0
+        while ptrS >= 0 and ptrT >= 0:
+            while ptrS >= 0:
+                if S[ptrS] == '#':
+                    Scount += 1
+                    ptrS -= 1
+                    continue
+
+                if Scount != 0:
+                    Scount -= 1
+                    ptrS -= 1
+                    continue
+            
+            while ptrT >= 0:
+                if T[ptrT] == '#':
+                    Tcount += 1
+                    ptrT -= 1
+                    continue
+                if Tcount != 0:
+                    Tcount -= 1
+                    ptrT -= 1
+                    continue
+            if ptrT < 0 and ptrS < 0:
+                return True
+            elif ptrT < 0 or ptrS < 0:
+                return False
+            elif T[ptrT] != S[ptrS]:
+                return False
+            ptrT -= 1
+            ptrS -= 1
+        if ptrT < 0 and ptrS < 0:
+            return True
+        else:
+            return False
